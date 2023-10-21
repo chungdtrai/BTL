@@ -1,0 +1,134 @@
+﻿@model BTL_MONTHAYTHE.Models.Entity.Product
+@{
+    ViewBag.Title = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/productcategory" class="nav-link">Sản phẩm</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/productcategory/add" class="nav-link">Thêm mới</a>
+        </li>
+    </ul>
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới sản phẩm</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/productcategory">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thêm mới sản phảm</h3>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("Add", "Product", FormMethod.Post, new {enctype="multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken();
+                <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <div class="form-group">
+                        <label for="">Mã sản phẩm</label>
+                        @Html.TextBoxFor(x => x.ProductCode, new { @class = "form-control", @placeholder = "Mã sản phẩm" })
+                        @Html.ValidationMessageFor(x => x.ProductCode, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tên sản phẩm</label>
+                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Tên danh mục" })
+                        @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Hình ảnh</label><br />
+                        <input type="file" name="image" id="image" class="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Danh mục sản phẩm</label>
+                        @Html.DropDownListFor(x => x.ProductCategoryId, ViewBag.ProductCategory as SelectList, "Chọn danh mục sản phẩm", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.ProductCategoryId, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Mô tả</label>
+                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @placeholder = "Mô tả" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Chi tiết sản phẩm</label>
+                        @Html.TextAreaFor(x => x.Detail, new { @class = "form-control", @placeholder = "Chi tiết sản phẩm" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Xuất xứ</label>
+                        @Html.TextBoxFor(x => x.Origin, new { @class = "form-control", @placeholder = "Xuất sứ" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Giá thành ($)</label>
+                        @Html.TextBoxFor(x => x.Price, new { @class = "form-control", @placeholder = "Giá thành", @type = "number" })
+                        @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Số lượng</label>
+                        @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @placeholder = "Số lượng", @type = "number" })
+                        @Html.ValidationMessageFor(x => x.Quantity, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Số lượng</label>
+                                @Html.TextBoxFor(x => x.Quantity, new { @type = "number", @class = "form-control", @placeholder = "Số lượng sản phẩm" })
+                                @Html.ValidationMessageFor(x => x.Detail, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Giá thành</label>
+                                @Html.TextBoxFor(x => x.Price, new { @type = "number", @class = "form-control", @placeholder = "Giá sản phẩm" })
+                                @Html.ValidationMessageFor(x => x.Price, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Mã giảm giá</label>
+                                @Html.TextBoxFor(x => x.Quantity, new { @class = "form-control", @placeholder = "Mã giảm giá" })
+                                @Html.ValidationMessageFor(x => x.Quantity, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a href="/admin/product" class="btn btn-danger">Quay lại</a>
+                        <button type="submit" class="btn btn-primary">Thêm mới</button>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+
