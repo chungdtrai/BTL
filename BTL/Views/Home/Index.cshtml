@@ -1,33 +1,53 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<!-- Slider -->
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<div class="main_slider" style="background-image:url(/Content/assets/images/slider_1.jpg)">
+    <div class="container fill_height">
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                <div class="main_slider_content">
+                    <h1>Chọn phong cách, tạo xu hướng</h1>
+                    <div class="red_button shop_now_button"><a href="#shop">shop now</a></div>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+</div>
+
+<!-- Banner -->
+
+@Html.Action("MenuProductCategory", "Menu")
+<!-- New Arrivals -->
+
+<div id="shop" class="new_arrivals">
+    <div class="container">
+        @Html.Action("MenuArrival", "Menu")
+    </div>
+</div>
+<hr style="width:80%; margin:auto; margin-top:30px"/>
+
+<!-- Newsletter -->
+
+@*<div class="newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to our newsletter and get 20% off your first purchase</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form action="post">
+                    <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+                        <input id="newsletter_email" type="email" placeholder="Your email" required="required" data-error="Valid email is required.">
+                        <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>*@

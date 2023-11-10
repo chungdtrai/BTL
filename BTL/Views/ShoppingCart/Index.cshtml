@@ -1,0 +1,84 @@
+﻿@model IEnumerable<BTL.Models.Entity.CartItem>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
+<div class="container single_product_container">
+    <div class="row">
+        <div class="col" style="height:60px">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="main-content">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>STT</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Ảnh</th>
+                    <th>Giá($)</th>
+                    <th>Kích cỡ</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền($)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    var i = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@(i++)</td>
+                            <td>@item.ProductName</td>
+                            <td>
+                                <img style="width:80px; height:100px;" src="~/Upload/@item.ProductImange" />
+                            </td>
+                            <td>@item.Price$</td>
+                            <td>@item.ProductSize</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.TotalPrice$</td>
+                            <td>
+                                <a href="" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDeleteFromCart">Xóa</a>
+                                <a href="/chi-tiet/@item.ProductName-p@(item.ProductId)" class="btn btn-sm btn-primary">Cập nhật</a>
+                            </td>
+
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="8" style="font-size:18px;text-align: right;">Tổng thanh toán: @Model.Sum(x => x.TotalPrice)$</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th colspan="7">Hiện chưa có sản phẩm tron giỏ hàng. Vui lòng quay lại <a href="/home">trang chủ</a> để mua hàng</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (Model != null && Model.Any())
+        {
+            <a href="/shoppingcart/checkout" style="float:right; background-color:green; color:aliceblue; margin-right:20px" class="btn btn-sm btn-primary">Thanh toán</a>
+
+        }
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/assets/js/single_custom.js"></script>
+}

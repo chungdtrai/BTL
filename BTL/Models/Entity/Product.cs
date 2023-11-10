@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BTL.Models.Entity;
 
 namespace BTL_MONTHAYTHE.Models.Entity
 {
@@ -15,6 +16,7 @@ namespace BTL_MONTHAYTHE.Models.Entity
         public int Id { get; set; }
         [Required(ErrorMessage = "Mã sản phẩm không được để trống")]
         [StringLength(150)]
+        [Remote(action:"IsProductCodeAvailable",controller: "Product",areaName:"Admin",HttpMethod = "POST", ErrorMessage ="Mã sản phẩm đã tồn tại")]
         public string ProductCode { get; set; }
         [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
         [StringLength(150)]
@@ -36,5 +38,6 @@ namespace BTL_MONTHAYTHE.Models.Entity
         public virtual ProductCategory ProductCategory { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
+        public virtual ICollection<ProductSize> ProductSizes { get; set; }
     }
 }

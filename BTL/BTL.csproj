@@ -175,11 +175,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="CustomValidation\CheckDateNull.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -196,12 +201,48 @@
     <Compile Include="Migrations\202310160350533_version3.designer.cs">
       <DependentUpon>202310160350533_version3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310210247213_product-size.cs" />
+    <Compile Include="Migrations\202310210247213_product-size.designer.cs">
+      <DependentUpon>202310210247213_product-size.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310210346068_update_productsize.cs" />
+    <Compile Include="Migrations\202310210346068_update_productsize.designer.cs">
+      <DependentUpon>202310210346068_update_productsize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310301409277_update_validate_productcode.cs" />
+    <Compile Include="Migrations\202310301409277_update_validate_productcode.designer.cs">
+      <DependentUpon>202310301409277_update_validate_productcode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311051257096_update_order.cs" />
+    <Compile Include="Migrations\202311051257096_update_order.designer.cs">
+      <DependentUpon>202311051257096_update_order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311051354498_update_order_v2.cs" />
+    <Compile Include="Migrations\202311051354498_update_order_v2.designer.cs">
+      <DependentUpon>202311051354498_update_order_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311051401356_update-order-v3.cs" />
+    <Compile Include="Migrations\202311051401356_update-order-v3.designer.cs">
+      <DependentUpon>202311051401356_update-order-v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311051417258_update-order-v4.cs" />
+    <Compile Include="Migrations\202311051417258_update-order-v4.designer.cs">
+      <DependentUpon>202311051417258_update-order-v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202311051549559_update-order-v5.cs" />
+    <Compile Include="Migrations\202311051549559_update-order-v5.designer.cs">
+      <DependentUpon>202311051549559_update-order-v5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entity\Cart.cs" />
+    <Compile Include="Models\Entity\CartItem.cs" />
     <Compile Include="Models\Entity\Order.cs" />
     <Compile Include="Models\Entity\OrderDetail.cs" />
     <Compile Include="Models\Entity\Product.cs" />
     <Compile Include="Models\Entity\ProductCategory.cs" />
+    <Compile Include="Models\Entity\ProductSize.cs" />
+    <Compile Include="Models\Entity\Size.cs" />
     <Compile Include="Models\Entity\User.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -2102,6 +2143,11 @@
     <Content Include="Content\admin\plugins\uplot\uPlot.iife.js" />
     <Content Include="Content\admin\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="Content\admin\plugins\uplot\uPlot.min.css" />
+    <Content Include="Content\assets\images\menbanner.jpg" />
+    <Content Include="Content\assets\images\treembanner.jpg" />
+    <Content Include="Content\assets\images\vnpay.jpg" />
+    <Content Include="Content\assets\images\womenbanner.jpg" />
+    <Content Include="Content\assets\js\choosesize.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -2118,7 +2164,68 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\assets\images\banner_1.jpg" />
+    <Content Include="Content\assets\images\banner_2.jpg" />
+    <Content Include="Content\assets\images\banner_3.jpg" />
+    <Content Include="Content\assets\images\blog_1.jpg" />
+    <Content Include="Content\assets\images\blog_2.jpg" />
+    <Content Include="Content\assets\images\blog_3.jpg" />
+    <Content Include="Content\assets\images\deal_ofthe_week.png" />
+    <Content Include="Content\assets\images\desc_1.jpg" />
+    <Content Include="Content\assets\images\desc_2.jpg" />
+    <Content Include="Content\assets\images\desc_3.jpg" />
+    <Content Include="Content\assets\images\map_marker.png" />
+    <Content Include="Content\assets\images\product_1.png" />
+    <Content Include="Content\assets\images\product_10.png" />
+    <Content Include="Content\assets\images\product_2.png" />
+    <Content Include="Content\assets\images\product_3.png" />
+    <Content Include="Content\assets\images\product_4.png" />
+    <Content Include="Content\assets\images\product_5.png" />
+    <Content Include="Content\assets\images\product_6.png" />
+    <Content Include="Content\assets\images\product_7.png" />
+    <Content Include="Content\assets\images\product_8.png" />
+    <Content Include="Content\assets\images\product_9.png" />
+    <Content Include="Content\assets\images\single_1.jpg" />
+    <Content Include="Content\assets\images\single_1_thumb.jpg" />
+    <Content Include="Content\assets\images\single_2.jpg" />
+    <Content Include="Content\assets\images\single_2_thumb.jpg" />
+    <Content Include="Content\assets\images\single_3.jpg" />
+    <Content Include="Content\assets\images\single_3_thumb.jpg" />
+    <Content Include="Content\assets\images\slider_1.jpg" />
+    <Content Include="Content\assets\js\categories_custom.js" />
+    <Content Include="Content\assets\js\contact_custom.js" />
+    <Content Include="Content\assets\js\custom.js" />
+    <Content Include="Content\assets\js\jquery-3.2.1.min.js" />
+    <Content Include="Content\assets\js\single_custom.js" />
+    <Content Include="Content\assets\plugins\easing\easing.js" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Content\assets\plugins\Isotope\isotope.pkgd.min.js" />
+    <Content Include="Content\assets\plugins\jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="Content\assets\plugins\jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="Content\assets\plugins\OwlCarousel2-2.2.1\ajax-loader.gif" />
+    <Content Include="Content\assets\plugins\OwlCarousel2-2.2.1\animate.css" />
+    <Content Include="Content\assets\plugins\OwlCarousel2-2.2.1\owl.carousel.css" />
+    <Content Include="Content\assets\plugins\OwlCarousel2-2.2.1\owl.carousel.js" />
+    <Content Include="Content\assets\plugins\OwlCarousel2-2.2.1\owl.theme.default.css" />
+    <Content Include="Content\assets\plugins\OwlCarousel2-2.2.1\owl.video.play.png" />
+    <Content Include="Content\assets\plugins\themify-icons\fonts\themify.svg" />
+    <Content Include="Content\assets\plugins\themify-icons\themify-icons.css" />
+    <Content Include="Content\assets\styles\bootstrap4\bootstrap.min.css" />
+    <Content Include="Content\assets\styles\bootstrap4\bootstrap.min.js" />
+    <Content Include="Content\assets\styles\bootstrap4\popper.js" />
+    <Content Include="Content\assets\styles\categories_responsive.css" />
+    <Content Include="Content\assets\styles\categories_styles.css" />
+    <Content Include="Content\assets\styles\contact_responsive.css" />
+    <Content Include="Content\assets\styles\contact_styles.css" />
+    <Content Include="Content\assets\styles\main_styles.css" />
+    <Content Include="Content\assets\styles\responsive.css" />
+    <Content Include="Content\assets\styles\single_responsive.css" />
+    <Content Include="Content\assets\styles\single_styles.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\templates\send2.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -2214,6 +2321,48 @@
     <Content Include="Areas\Admin\Views\ProductCategory\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\FilterItem.cshtml" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\assets\plugins\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\assets\plugins\themify-icons\fonts\themify.eot" />
+    <Content Include="Content\assets\plugins\themify-icons\fonts\themify.ttf" />
+    <Content Include="Content\assets\plugins\themify-icons\fonts\themify.woff" />
+    <Content Include="Areas\Admin\Views\Product\FindItemByName.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Partial_OrderDetail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2225,6 +2374,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\shoppingcart.js" />
+    <Content Include="Scripts\size.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2259,6 +2410,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Menu\_MenuTop.cshtml" />
+    <Content Include="Views\Menu\_MenuProductCategory.cshtml" />
+    <Content Include="Views\Menu\_MenuArrival.cshtml" />
+    <Content Include="Views\Product\_GetItemById.cshtml" />
+    <Content Include="Views\Product\_GetAllItem.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\CheckOut.cshtml" />
+    <Content Include="Views\ShoppingCart\Partial_Cart_Item.cshtml" />
+    <Content Include="Views\ShoppingCart\OrderSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2301,6 +2462,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310160350533_version3.resx">
       <DependentUpon>202310160350533_version3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310210247213_product-size.resx">
+      <DependentUpon>202310210247213_product-size.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310210346068_update_productsize.resx">
+      <DependentUpon>202310210346068_update_productsize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310301409277_update_validate_productcode.resx">
+      <DependentUpon>202310301409277_update_validate_productcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311051257096_update_order.resx">
+      <DependentUpon>202311051257096_update_order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311051354498_update_order_v2.resx">
+      <DependentUpon>202311051354498_update_order_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311051401356_update-order-v3.resx">
+      <DependentUpon>202311051401356_update-order-v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311051417258_update-order-v4.resx">
+      <DependentUpon>202311051417258_update-order-v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202311051549559_update-order-v5.resx">
+      <DependentUpon>202311051549559_update-order-v5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

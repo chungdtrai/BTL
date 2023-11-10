@@ -1,0 +1,51 @@
+﻿
+@model IEnumerable<BTL_MONTHAYTHE.Models.Entity.ProductCategory>
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        <div class="col text-center">
+            <div class="section_title new_arrivals_title">
+                <h2>Sản phẩm</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col text-center">
+            <div class="new_arrivals_sorting">
+                <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                    <li class="grid_sorting_button button d-flex flex-column justify-content-center active is-checked align-items-center" onclick="getAllItems()">Tất cả</li>
+                    @foreach (var i in Model)
+                    {
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" onclick="getItemById(@i.Id)">@i.Title</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+}
+<div class="row" id="product_list" style="margin-top:40px">
+    @Html.Action("GetAllItem", "Product")
+</div>
+
+<script>
+    function getItemById(id) {
+        $.ajax({
+            url: '/Product/GetItemById',
+            type: 'GET',
+            data: { id: id },
+            success: function (data) {
+                $("#product_list").html(data);
+            }
+        })
+    }
+    function getAllItems() {
+        $.ajax({
+            url: '/Product/GetAllItem',
+            type: 'GET',
+            success: function (data) {
+                $("#product_list").html(data);
+            }
+        })
+    }
+</script>

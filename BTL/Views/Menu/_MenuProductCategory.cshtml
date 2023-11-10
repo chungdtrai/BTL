@@ -1,0 +1,33 @@
+﻿
+@model IEnumerable<BTL_MONTHAYTHE.Models.Entity.ProductCategory>
+@if (Model != null && Model.Any())
+{
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image: url(/Content/assets/images/treembanner.jpg)">
+                        <div class="banner_category">
+                            <a href="#">Trẻ em</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image: url(/Content/assets/images/womenbanner.jpg)">
+                        <div class="banner_category">
+                            <a href="#">Phụ nữ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image: url(/Content/assets/images/menbanner.jpg)">
+                        <div class="banner_category">
+                            <a href="#">Nam giới</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

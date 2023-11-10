@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.ProductCategoryPresent = 0;
 }
 
 @section naviheader{
@@ -15,33 +16,19 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/admin/product" class="nav-link">Sản phẩm</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/product" class="nav-link">Trẻ em</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/product" class="nav-link">Phụ nữ</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/product" class="nav-link">Nam Giới</a>
-        </li>
+        @if (ViewBag.ProductCategory != null)
+        {
+            foreach (var item in ViewBag.ProductCategory)
+            {
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/admin/product/filteritem/@item.Id" class="nav-link">@item.Title</a>
+                </li>
+            }
+
+        }
     </ul>
 }
-<!-- Content Header (Page header) -->
-<!--<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Sản phẩm</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/admin/productcategory">Home</a></li>
-                    <li class="breadcrumb-item active">Sản phẩm</li>
-                </ol>
-            </div>
-        </div>
-    </div>-->
-<!-- /.container-fluid -->
+
 <!--</section>-->
 <!-- Main content -->
 <section class="content" style="margin-top:10px">
@@ -49,17 +36,19 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <form action="simple-results.html" style="width:1100px; float:left">
-                <div class="input-group">
-                    <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+
+            @using (Html.BeginForm("FindItemByName", "Product", FormMethod.Post, new { style = "width:1100px; float:left; margin-top:8px" }))
+            {
+                <div class="input-group" style="vertical-align">
+                    <input style="font-size:20px" name="stringSearch" type="search" class="form-control form-control-sm" placeholder="Nhập tên sản phẩm cần tìm kiếm">
+                    <input type="number" hidden name="categoryId" value="@ViewBag.ProductCategoryPresent"/>
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-lg btn-default">
-                            <i class="fa fa-search"></i>
+                        <button style="height:31px" type="submit" class="btn btn-sm btn-default">
+                            <i class="fa fa-search icon-center"></i>
                         </button>
                     </div>
                 </div>
-            </form>
-
+            }
             <div class="card-tools" style="margin-top:5px">
                 <a href="/admin/product/add" class="btn btn-primary">Thêm mới</a>
             </div>
@@ -81,8 +70,9 @@
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
+
                         var i = 1;
-                        var j = ViewBag.pageSize * (ViewBag.index - 1) +1 ;
+                        var j = ViewBag.pageSize * (ViewBag.index - 1) + 1;
                         foreach (var item in Model)
                         {
                             var check = item.IsActive ? "<i class='fa fa-check text-success'></i>" :
@@ -136,21 +126,23 @@
         $('body').on('click', '.btnDelete', function () {
             var id = $(this).data("id");
             var title = $(this).data("title");
-            var conf = confirm('Bạn có muốn xóa danh mục sản phẩm ' + title);
+            var conf = confirm('Bạn có muốn xóa danh mục ' + title);
             if (conf === true) {
                 $.ajax({
-                    url: '/admin/productcategory/delete',
+                    url: '/admin/product/delete',
                     type: 'POST',
                     data: { id: id },
                     success: function (rs) {
                         if (rs.success) {
-                            $('#trow_' + id).remove();
+                            /* $('#trow_' + id).remove();*/
+                            // Lưu trạng thái xóa trong cookie
+                            document.cookie = "deleted=1";
                             $.alert('Xóa thành công', {
                                 // Enable auto close
                                 autoClose: true,
 
                                 // Auto close delay time in ms (>1000)
-                                closeTime: 2000,
+                                closeTime: 1000,
 
 
                                 // danger, success, warning or info
@@ -158,15 +150,42 @@
 
                                 // position+offeset
                                 // top-left,top-right,bottom-left,bottom-right,center
-                                position: ['center', [-0.42, 0]],
+                                position: ['center', [-0.42, 0]]
 
                             });
+                            // Tải lại trang
+
+                            setTimeout(function () {
+                                location.reload();
+                            }, 300)
 
                         }
                     }
                 })
             }
         })
+
+        $('body').on('click', '.btn-active', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var id = btn.data("id");
+            $.ajax({
+                url: '/admin/product/IsActive',
+                type: 'POST',
+                data: { id: id },
+                success: function (rs) {
+
+                    if (rs.success) {
+                        if (rs.isActive) {
+                            btn.html("<i class='fa fa-check text-success'></i>");
+                        } else {
+                            btn.html("<i class='fa fa-times text-danger'></i>");
+                        }
+                    }
+                }
+            })
+        })
+
     </script>
 }
 

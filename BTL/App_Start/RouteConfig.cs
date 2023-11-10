@@ -14,9 +14,17 @@ namespace BTL
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "DetailProduct",
+               url: "chi-tiet/{title}-p{id}",
+               defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },
+               namespaces: new[] { "BTL.Controllers" }
+           );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] {"BTL.Controllers"}
             );
         }
     }

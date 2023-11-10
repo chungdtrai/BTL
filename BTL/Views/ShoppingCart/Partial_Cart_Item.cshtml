@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BTL.Models.Entity.CartItem>
+@if (Model != null && Model.Any())
+{
+    var tongTien = decimal.Zero;
+    <table class="table" >
+
+        @foreach (var item in Model)
+        {
+            tongTien += item.TotalPrice;
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.ProductSize</td>
+                <td>@item.Price$</td>
+            </tr>
+        }
+        <tr>
+            <td>Tổng tiền</td>
+            <td>@tongTien$</td>
+        </tr>
+    </table>
+}

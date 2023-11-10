@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BTL_MONTHAYTHE.Models.Entity.Product>
+@if (Model != null && Model.Any())
+{
+    foreach (var i in Model)
+    {
+        if (i.IsActive == true)
+        {
+            <div class="product-item">
+                <div class="product">
+                    <div class="product_image">
+                        <img style="max-height:250px" src="~/Upload/@i.Image" alt="">
+                    </div>
+                    <div class="favorite"></div>
+                    @*<div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>*@
+                    <div class="product_info">
+                        <h6 class="product_name"><a href="/chi-tiet/@i.Title-p@(i.Id)">@i.Title</a></h6>
+                        <div class="product_price">$@i.Price</div>
+                    </div>
+                </div>
+                <div class="red_button add_to_cart_button"><a href="/chi-tiet/@i.Title-p@(i.Id)">Mua hàng</a></div>
+            </div>
+        }
+    }
+}
+
